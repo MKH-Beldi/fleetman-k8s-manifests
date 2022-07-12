@@ -10,7 +10,7 @@ node {
                 sh "cat fleetman/develop/fleetman-webapp-deploy.yaml"
                 sh "git add ."
                 sh "git commit -m 'Jenkins Job change manifest: ${DOCKERTAG}'"
-                sh "git push -u origin main"
+                sh "git push https://github.com/MKH-Beldi/fleetman-k8s-manifests.git HEAD:main"
             }    
         }
     }
