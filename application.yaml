@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/MKH-Beldi/fleetman-k8s-manifests.git
     targetRevision: HEAD
-    path: guestbook
+    path: fleetman
   destination:
     server: https://kubernetes.default.svc
-    namespace: guestbook
+    namespace: fleetman
