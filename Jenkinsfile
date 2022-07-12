@@ -1,5 +1,4 @@
-pipeline {
-    agent any
+node {
     stage('Update GIT') {
         script {
             checkout scm
@@ -11,4 +10,5 @@ pipeline {
             sh "git push -u origin main"
         }
     }
+    
 }
