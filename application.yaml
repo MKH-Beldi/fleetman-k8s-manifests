@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fleetman
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/MKH-Beldi/fleetman-k8s-manifests.git
+    targetRevision: HEAD
+    path: guestbook
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
