@@ -8,7 +8,14 @@ spec:
   source:
     repoURL: https://github.com/MKH-Beldi/fleetman-k8s-manifests.git
     targetRevision: HEAD
-    path: fleetman
+    path: fleetman/develop
   destination:
     server: https://kubernetes.default.svc
     namespace: fleetman
+
+  syncPolicy:  
+    syncOptions:
+    - CreateNamespace=true
+    automated: 
+      selfHeal: true
+      prune: true 
