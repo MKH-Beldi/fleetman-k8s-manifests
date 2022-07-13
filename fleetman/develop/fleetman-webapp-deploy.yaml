@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fleetman-webapp
-        image: http://nexus-registry.eastus.cloudapp.azure.com:8085/fleetman-webapp:b166b23
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-webapp:b166b23
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: local-microservice
