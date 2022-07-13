@@ -2,7 +2,7 @@ node {
     stage('Clone repository') {
         checkout scm
     }    
-    stage('Update GIT') {
+    stage('Update & Push K8S Manifests') {
         script {
             withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 sh "cat fleetman/develop/fleetman-webapp-deploy.yaml"

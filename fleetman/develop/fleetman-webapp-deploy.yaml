@@ -18,3 +18,5 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: local-microservice
+      imagePullSecrets:
+      - name: regcred    
