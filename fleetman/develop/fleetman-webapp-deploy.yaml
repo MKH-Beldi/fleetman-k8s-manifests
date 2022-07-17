@@ -17,4 +17,4 @@ spec:
         image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-webapp:7d60ab4
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: local-microservice
+          value: production-microservice
