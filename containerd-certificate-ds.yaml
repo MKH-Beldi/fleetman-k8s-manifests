@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trusted-ca
+  namespace: kube-system
+data:
+  ca.crt: |+
+    -----BEGIN CERTIFICATE-----
+    MIIEjTCCA3WgAwIBAgIETEt1RTANBgkqhkiG9w0BAQsFADCBmjELMAkGA1UEBhMC
+    VVMxFzAVBgNVBAgMDk5vbiBzcMOpY2lmacOpMRcwFQYDVQQHDA5Ob24gc3DDqWNp
+    ZmnDqTERMA8GA1UEChMIU29uYXR5cGUxETAPBgNVBAsTCFNvbmF0eXBlMTMwMQYD
+    VQQDDCoqLm5leHVzLXJlZ2lzdHJ5LmVhc3R1cy5jbG91ZGFwcC5henVyZS5jb20w
+    HhcNMjIwNzEzMTE1MzA0WhcNMzYwMzIxMTE1MzA0WjCBmjELMAkGA1UEBhMCVVMx
+    FzAVBgNVBAgMDk5vbiBzcMOpY2lmacOpMRcwFQYDVQQHDA5Ob24gc3DDqWNpZmnD
+    qTERMA8GA1UEChMIU29uYXR5cGUxETAPBgNVBAsTCFNvbmF0eXBlMTMwMQYDVQQD
+    DCoqLm5leHVzLXJlZ2lzdHJ5LmVhc3R1cy5jbG91ZGFwcC5henVyZS5jb20wggEi
+    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBciJhRv5/P+DEGHuTJ8MGHyI7
+    G/Wj5f2R2nuyfvxePoT261TeIGTsRnX37cjYKUPK3LZ1s0e4Oeykxeb47VThM4zz
+    xo3cqlWb6NfUu6LDb7/OnN+3X5K9CKhDNn/tGMvniON4fuQDpwWz1Pqg8cO8WM7I
+    MkKqEjIMWFHiZB+HeA9L9VqukYQxgtrOMXBlR6/14F2ATTR8PYvOvZPzkxfzjbSd
+    patCYhQVZk+2I0Lx68V1va3nEQfTuazY6d7YZ9HsC8+gonh3CdK2aKuXAZF+Y2cq
+    k0h3VsJ+9gI3w1EsA1+Vu9EKfwIB4oh5FEFpj2QcHxQQt4e+jZMzMg6Rapl1AgMB
+    AAGjgdgwgdUwgbMGA1UdEQSBqzCBqIIobmV4dXMtcmVnaXN0cnkuZWFzdHVzLmNs
+    b3VkYXBwLmF6dXJlLmNvbYIobmV4dXMtcmVnaXN0cnkuZWFzdHVzLmNsb3VkYXBw
+    LmF6dXJlLmNvbYIobmV4dXMtcmVnaXN0cnkuZWFzdHVzLmNsb3VkYXBwLmF6dXJl
+    LmNvbYIobmV4dXMtcmVnaXN0cnkuZWFzdHVzLmNsb3VkYXBwLmF6dXJlLmNvbTAd
+    BgNVHQ4EFgQUCCcXkx/NyclKX7SlZ+nPap0Y/vkwDQYJKoZIhvcNAQELBQADggEB
+    ABwwDGak/sSKquc2G7KVMWXaA/60pc3VU2+cakSJrQTU74wPTVZzG1lASmKl79DP
+    YkH3Hj0p8upeube+p3mRnLV+pR6wbTIzDgTBeoRwY59heFmz7krxO4+BwBKzWOcI
+    DTubKb+xeoMxXFKs/3OUkeJORA+P9ge4duQ6c8CtQpr/Q0uWH4ydbskXybWSbbqV
+    i1a+38u4dRxDrorV67/cjkgBQoHeuqAPe9UOro31+MV8NR37+hvfZXqt/R5ralP2
+    XLnO+MNrnqV9VdK7d1riasWhizjhnvZ2HSfjfLPSQjneoXGP1DM82pGnq76vxdnk
+    rrpNgS1qLfMSB4WrdtJXOJM=
+    -----END CERTIFICATE-----
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: setup-script
+  namespace: kube-system
+data:
+  setup.sh: |
+    echo "$TRUSTED_CERT" > /usr/local/share/ca-certificates/ca.crt && update-ca-certificates && systemctl restart containerd
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  namespace: kube-system
+  name: node-custom-setup
+  labels:
+    k8s-app: node-custom-setup
+spec:
+  selector:
+    matchLabels:
+      k8s-app: node-custom-setup
+  template:
+    metadata:
+      labels:
+        k8s-app: node-custom-setup
+    spec:
+      hostPID: true
+      hostNetwork: true
+      initContainers:
+      - name: init-node
+        command: ["nsenter"]
+        args: ["--mount=/proc/1/ns/mnt", "--", "sh", "-c", "$(SETUP_SCRIPT)"]
+        image: debian
+        env:
+        - name: TRUSTED_CERT
+          valueFrom:
+            configMapKeyRef:
+              name: trusted-ca
+              key: ca.crt
+        - name: SETUP_SCRIPT
+          valueFrom:
+            configMapKeyRef:
+              name: setup-script
+              key: setup.sh
+        securityContext:
+          privileged: true
+      containers:
+      - name: wait
+        image: k8s.gcr.io/pause:3.1

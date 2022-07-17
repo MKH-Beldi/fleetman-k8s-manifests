@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fleetman-webapp
+  name: fleetman-api-gateway
 spec:
   selector:
     matchLabels:
-      app: fleetman-webapp
+      app: fleetman-api-gateway
   replicas: 1
   template:
     metadata:
       labels:
-        app: fleetman-webapp
+        app: fleetman-api-gateway
     spec:
       containers:
-      - name: fleetman-webapp
-        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-webapp:b166b23
+      - name: fleetman-api-gateway
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-api-gateway:latest
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: local-microservice
