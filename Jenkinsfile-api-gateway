@@ -1,4 +1,9 @@
 node {
+    stage('Clean Workspace') {
+        steps {
+                cleanWs()
+        }
+    }
     stage('Clone repository') {
         checkout scm
     }    
