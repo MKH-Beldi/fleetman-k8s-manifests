@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fleetman-api-gateway
-        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-api-gateway:a61fba0
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-api-gateway:db129c5
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
