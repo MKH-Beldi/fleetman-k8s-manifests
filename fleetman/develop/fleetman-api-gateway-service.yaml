@@ -4,7 +4,7 @@ metadata:
   name: fleetman-api-gateway
 spec:
   selector:
-    app: fleetman-api-gateway
+    app: api-gateway
   ports:
   - name: http
     port: 8080
