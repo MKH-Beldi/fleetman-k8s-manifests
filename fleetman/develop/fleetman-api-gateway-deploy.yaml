@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: fleetman-api-gateway
+      app: api-gateway
   template:
     metadata:
       labels:
-        app: fleetman-api-gateway
+        app: api-gateway
     spec:
       containers:
-      - name: fleetman-api-gateway
+      - name: api-gateway
         image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-api-gateway:8e1e318
         env:
         - name: SPRING_PROFILES_ACTIVE
