@@ -12,10 +12,5 @@ spec:
         app: queue
     spec:
       containers:
-<<<<<<< HEAD
       - name: queue
-        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-queue:lastest
-=======
-      - name: fleetman-queue
         image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-queue:c0b4181
->>>>>>> 2d5e7a9324646f908d3f0b2814a8ce6ffea7fdc4
