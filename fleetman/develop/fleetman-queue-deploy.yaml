@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-queue
+spec:
+  selector:
+    matchLabels:
+      app: fleetman-queue
+  template:
+    metadata:
+      labels:
+        app: fleetman-queue
+    spec:
+      containers:
+      - name: fleetman-queue
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-queue:lastest
