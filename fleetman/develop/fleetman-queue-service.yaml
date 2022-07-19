@@ -4,7 +4,7 @@ metadata:
   name: fleetman-queue
 spec:
   selector:
-    app: fleetman-queue
+    app: queue
   ports:
     - name: admin-console
       port: 8161

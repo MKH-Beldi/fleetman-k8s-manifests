@@ -5,12 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: fleetman-queue
+      app: queue
   template:
     metadata:
       labels:
-        app: fleetman-queue
+        app: queue
     spec:
       containers:
-      - name: fleetman-queue
+      - name: queue
         image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-queue:lastest

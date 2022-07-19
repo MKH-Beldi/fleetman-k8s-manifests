@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: position-tracker
+  name: fleetman-position-tracker
 spec:
   selector:
     matchLabels:
