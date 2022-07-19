@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: position-tracker
-        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-tracker:lastest
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-tracker:7df492e
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
