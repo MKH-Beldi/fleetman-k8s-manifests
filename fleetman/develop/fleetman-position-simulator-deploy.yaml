@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: position-simulator
-        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-simulator:lastest
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-simulator:e105154
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
