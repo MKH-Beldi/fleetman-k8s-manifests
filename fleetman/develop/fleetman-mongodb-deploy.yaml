@@ -20,4 +20,4 @@ spec:
       volumes:
         - name: mongo-persistent-storage
           persistentVolumeClaim:
-            claimName: mongodb-pvc
+            claimName: fleetman-mongodb-pvc
