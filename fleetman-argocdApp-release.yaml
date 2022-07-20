@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fleetman
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/MKH-Beldi/fleetman-k8s-manifests.git
+    targetRevision: HEAD
+    path: fleetman/release
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fleetman
+
+  syncPolicy:  
+    syncOptions:
+    - CreateNamespace=true
+    automated: 
+      selfHeal: true
+      prune: true 
