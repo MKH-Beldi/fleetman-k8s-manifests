@@ -8,6 +8,7 @@ node {
     stage('Update & Push K8S Manifests') {
         script {
             withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                sh 'printenv'
                 sh "cat fleetman/develop/fleetman-api-gateway-deploy.yaml"
                 sh "sed -i 's+nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-api-gateway.*+nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-api-gateway:${DOCKERTAG}+g' fleetman/develop/fleetman-api-gateway-deploy.yaml"
                 sh "cat fleetman/develop/fleetman-api-gateway-deploy.yaml"
