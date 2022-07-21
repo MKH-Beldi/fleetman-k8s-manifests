@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-position-simulator
+spec:
+  selector:
+    matchLabels:
+      app: position-simulator
+  template:
+    metadata:
+      labels:
+        app: position-simulator
+    spec:
+      containers:
+      - name: position-simulator
+        image: nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-position-simulator:66d6102
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice

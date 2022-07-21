@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-position-tracker
+spec:
+  selector:
+    matchLabels:
+      app: position-tracker
+  template:
+    metadata:
+      labels:
+        app: position-tracker
+    spec:
+      containers:
+      - name: position-tracker
+        image: nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-position-tracker:3786765
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice

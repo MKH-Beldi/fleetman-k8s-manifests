@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-webapp:042df2d
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice

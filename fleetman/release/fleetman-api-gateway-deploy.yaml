@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-api-gateway
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-api-gateway:c6d8e13
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice
