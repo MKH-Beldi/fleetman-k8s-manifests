@@ -10,16 +10,14 @@ node {
             withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 if (env.BRANCH_GIT.contains('feature')) {
                     sh "cat fleetman/develop/fleetman-position-tracker-deploy.yaml"
-                    sh "sed -i 's+nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-tracker.*+nexus-registry.eastus.cloudapp.azure.com:8086/
-                    fleetman-position-tracker:${DOCKERTAG}-dev+g' fleetman/develop/fleetman-position-tracker-deploy.yaml"
+                    sh "sed -i 's+nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-tracker.*+nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-position-tracker:${DOCKERTAG}-dev+g' fleetman/develop/fleetman-position-tracker-deploy.yaml"
                     sh "cat fleetman/develop/fleetman-position-tracker-deploy.yaml"
                     sh "git add ."
                     sh "git commit -m 'Jenkins Job change manifest: ${DOCKERTAG}'"
                     sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/fleetman-k8s-manifests.git HEAD:main"
                 } else if (env.BRANCH_GIT.contains('release')) {
                     sh "cat fleetman/release/fleetman-position-tracker-deploy.yaml"
-                    sh "sed -i 's+nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-position-tracker.*+nexus-registry.eastus.cloudapp.azure.com:8088/
-                    fleetman-position-tracker:${DOCKERTAG}-test+g' fleetman/release/fleetman-position-tracker-deploy.yaml"
+                    sh "sed -i 's+nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-position-tracker.*+nexus-registry.eastus.cloudapp.azure.com:8088/fleetman-position-tracker:${DOCKERTAG}-test+g' fleetman/release/fleetman-position-tracker-deploy.yaml"
                     sh "cat fleetman/release/fleetman-position-tracker-deploy.yaml"
                     sh "git add ."
                     sh "git commit -m 'Jenkins Job change manifest: ${DOCKERTAG}'"
