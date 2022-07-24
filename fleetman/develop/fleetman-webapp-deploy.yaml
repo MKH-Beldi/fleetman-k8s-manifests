@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-webapp:d5900e5-dev
+        image: nexus-registry.eastus.cloudapp.azure.com:8086/fleetman-webapp:fc72b55-dev
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
